@@ -24,7 +24,7 @@ public class SecurityConfig {
 
     private final UsuarioService usuarioService;
 
-    @Bean
+    @Bean asdas
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
