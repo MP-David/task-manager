@@ -1,6 +1,6 @@
 package com.david.task_manager.service;
 
-import com.david.task_manager.domain.ENUMS.Priority;
+import com.david.task_manager.domain.ENUMS.PriorityEnum;
 import com.david.task_manager.domain.ENUMS.StageEnum;
 import com.david.task_manager.domain.Task;
 import com.david.task_manager.repository.TaskRepository;
@@ -28,16 +28,16 @@ public class ScoreService {
     }
 
 
-    public static int calculateScore(Priority priority, LocalDate endDate) {
+    public static int calculateScore(PriorityEnum priorityEnum, LocalDate endDate) {
         long daysUntilDelivery = LocalDate.now().until(endDate, ChronoUnit.DAYS);
-        int finalScore = getFinalScore(priority, daysUntilDelivery);
+        int finalScore = getFinalScore(priorityEnum, daysUntilDelivery);
 
         return finalScore;
     }
 
-    private static int getFinalScore(Priority priority, long daysUntilDelivery) {
+    private static int getFinalScore(PriorityEnum priorityEnum, long daysUntilDelivery) {
         int priorityScore;
-        switch (priority) {
+        switch (priorityEnum) {
             case LOW:
                 priorityScore = 0;
                 break;

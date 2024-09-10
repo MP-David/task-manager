@@ -19,10 +19,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
-
-    private final UsuarioService usuarioService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){

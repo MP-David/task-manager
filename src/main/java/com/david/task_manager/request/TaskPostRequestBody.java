@@ -1,6 +1,6 @@
 package com.david.task_manager.request;
 
-import com.david.task_manager.domain.ENUMS.Priority;
+import com.david.task_manager.domain.ENUMS.PriorityEnum;
 import com.david.task_manager.domain.ENUMS.StageEnum;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -22,7 +22,7 @@ public class TaskPostRequestBody {
     @Builder.Default
     LocalDate initDate = LocalDate.now();
     LocalDate endDate;
-    Priority priority;
+    PriorityEnum priorityEnum;
     Long score;
 
 }

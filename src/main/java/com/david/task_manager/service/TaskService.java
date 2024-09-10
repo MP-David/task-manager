@@ -1,5 +1,6 @@
 package com.david.task_manager.service;
 
+import com.david.task_manager.domain.ENUMS.StageEnum;
 import com.david.task_manager.domain.Task;
 import com.david.task_manager.exception.BadRequest;
 import com.david.task_manager.mapper.TaskMapper;
@@ -62,8 +63,11 @@ public class TaskService {
     }
 
     public void validateTaskStage(int stage) {
-        if (stage < 0 || stage > 2) {
-            throw new IllegalArgumentException("Código de status inválido: " + stage);
+        try {
+            StageEnum.forValue(stage);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Código de status inválido: " + stage +
+                    ". Deve estar entre " + StageEnum.getMinCodigo() + " e " + StageEnum.getMaxCodigo());
         }
     }
 
