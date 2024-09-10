@@ -1,6 +1,6 @@
 package com.david.task_manager.domain;
 
-import com.david.task_manager.domain.ENUMS.Priority;
+import com.david.task_manager.domain.ENUMS.PriorityEnum;
 import com.david.task_manager.domain.ENUMS.StageEnum;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -24,7 +24,7 @@ public class Task {
     Usuario responsible;
 
     @Enumerated(EnumType.STRING)
-    Priority priority;
+    PriorityEnum priority;
 
     @Enumerated(EnumType.STRING)
     StageEnum stage;

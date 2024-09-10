@@ -20,7 +20,7 @@ public class Usuario {
     String password;
     String email;
 
-    @OneToMany(mappedBy = "responsible")
+    @OneToMany(mappedBy = "responsible", fetch = FetchType.EAGER)
     private Set<Task> tasks;
 
     @Enumerated(EnumType.STRING)

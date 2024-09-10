@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-09-06T17:30:33-0300",
+    date = "2024-09-10T18:11:59-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -44,7 +44,7 @@ public class TaskMapperImpl implements TaskMapper {
         task.setDescription( taskPostRequestBody.getDescription() );
         task.setEndDate( taskPostRequestBody.getEndDate() );
         task.setScore( taskPostRequestBody.getScore() );
-        task.setPriority( taskPostRequestBody.getPriority() );
+        task.setPriority( taskPostRequestBody.getPriorityEnum() );
         task.setStage( taskPostRequestBody.getStage() );
 
         task.setInitDate( java.time.LocalDate.now() );
@@ -64,7 +64,7 @@ public class TaskMapperImpl implements TaskMapper {
         task.setDescription( taskPutRequestBody.getDescription() );
         task.setEndDate( xmlGregorianCalendarToLocalDate( localDateTimeToXmlGregorianCalendar( taskPutRequestBody.getEndDate() ) ) );
         task.setScore( taskPutRequestBody.getScore() );
-        task.setPriority( taskPutRequestBody.getPriority() );
+        task.setPriority( taskPutRequestBody.getPriorityEnum() );
         task.setStage( taskPutRequestBody.getStage() );
 
         return task;

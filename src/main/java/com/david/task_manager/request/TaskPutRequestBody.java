@@ -1,6 +1,6 @@
 package com.david.task_manager.request;
 
-import com.david.task_manager.domain.ENUMS.Priority;
+import com.david.task_manager.domain.ENUMS.PriorityEnum;
 import com.david.task_manager.domain.ENUMS.StageEnum;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class TaskPutRequestBody {
     String description;
     StageEnum stage;
     LocalDateTime endDate;
-    Priority priority;
+    PriorityEnum priorityEnum;
     Long score;
 
 }
