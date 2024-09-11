@@ -1,6 +1,10 @@
 package com.david.task_manager.domain.ENUMS;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum StageEnum {
     BACKLOG(0), ON_GOING(1), DONE(2);
@@ -11,10 +15,15 @@ public enum StageEnum {
         this.codigo = codigo;
     }
 
+    @JsonValue
+    public String getName() {
+        return this.name();
+    }
+
     @JsonCreator
-    public static StageEnum forValue(int value) {
+    public static StageEnum forValue(String value) {
         for (StageEnum stageEnum : StageEnum.values()) {
-            if (stageEnum.codigo == value) {
+            if (stageEnum.name().equals(value)) {
                 return stageEnum;
             }
         }
@@ -25,23 +34,11 @@ public enum StageEnum {
         return codigo;
     }
 
-    public static int getMaxCodigo() {
-        int max = Integer.MIN_VALUE;
-        for (StageEnum stage : values()) {
-            if (stage.getCodigo() > max) {
-                max = stage.getCodigo();
-            }
+    public static List<String> validValues() {
+        List<String> list = new ArrayList<>();
+        for (StageEnum value : StageEnum.values()) {
+            list.add(value.getName());
         }
-        return max;
-    }
-
-    public static int getMinCodigo() {
-        int min = Integer.MAX_VALUE;
-        for (StageEnum stage : values()) {
-            if (stage.getCodigo() < min) {
-                min = stage.getCodigo();
-            }
-        }
-        return min;
+        return list;
     }
 }

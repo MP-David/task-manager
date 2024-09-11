@@ -1,11 +1,14 @@
 package com.david.task_manager.mapper;
 
 import com.david.task_manager.domain.Task;
+import com.david.task_manager.dto.TaskDTO;
 import com.david.task_manager.request.TaskPostRequestBody;
 import com.david.task_manager.request.TaskPutRequestBody;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
@@ -15,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-09-11T09:02:46-0300",
+    date = "2024-09-11T16:33:01-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -40,11 +43,13 @@ public class TaskMapperImpl implements TaskMapper {
 
         Task task = new Task();
 
+        task.setResponsible( mapIdToUsuario( taskPostRequestBody.getResponsibleId() ) );
         task.setTitle( taskPostRequestBody.getTitle() );
         task.setDescription( taskPostRequestBody.getDescription() );
         task.setEndDate( taskPostRequestBody.getEndDate() );
         task.setScore( taskPostRequestBody.getScore() );
-        task.setStage( taskPostRequestBody.getStage() );
+        task.setPriority( taskPostRequestBody.getPriority() );
+        task.setStage( mapStringToStageEnum( taskPostRequestBody.getStage() ) );
 
         task.setInitDate( java.time.LocalDate.now() );
 
@@ -59,6 +64,7 @@ public class TaskMapperImpl implements TaskMapper {
 
         Task task = new Task();
 
+        task.setResponsible( mapIdToUsuario( taskPutRequestBody.getResponsibleId() ) );
         task.setTitle( taskPutRequestBody.getTitle() );
         task.setDescription( taskPutRequestBody.getDescription() );
         task.setEndDate( xmlGregorianCalendarToLocalDate( localDateTimeToXmlGregorianCalendar( taskPutRequestBody.getEndDate() ) ) );
@@ -66,6 +72,41 @@ public class TaskMapperImpl implements TaskMapper {
         task.setStage( taskPutRequestBody.getStage() );
 
         return task;
+    }
+
+    @Override
+    public TaskDTO toTaskDTO(Task task) {
+        if ( task == null ) {
+            return null;
+        }
+
+        TaskDTO taskDTO = new TaskDTO();
+
+        taskDTO.setResponsible( toUsuarioLimitadoDTO( task.getResponsible() ) );
+        taskDTO.setId( task.getId() );
+        taskDTO.setTitle( task.getTitle() );
+        taskDTO.setDescription( task.getDescription() );
+        taskDTO.setInitDate( task.getInitDate() );
+        taskDTO.setEndDate( task.getEndDate() );
+        taskDTO.setScore( task.getScore() );
+        taskDTO.setPriority( task.getPriority() );
+        taskDTO.setStage( task.getStage() );
+
+        return taskDTO;
+    }
+
+    @Override
+    public List<TaskDTO> toTaskDTOList(List<Task> tasks) {
+        if ( tasks == null ) {
+            return null;
+        }
+
+        List<TaskDTO> list = new ArrayList<TaskDTO>( tasks.size() );
+        for ( Task task : tasks ) {
+            list.add( toTaskDTO( task ) );
+        }
+
+        return list;
     }
 
     private XMLGregorianCalendar localDateTimeToXmlGregorianCalendar( LocalDateTime localDateTime ) {
