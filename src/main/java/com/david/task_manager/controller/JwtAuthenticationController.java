@@ -1,10 +1,13 @@
 package com.david.task_manager.controller;
 
+import com.david.task_manager.exception.BadRequest;
 import com.david.task_manager.request.JwtPostRequestBody;
 import com.david.task_manager.security.JwtTokenUtil;
 import com.david.task_manager.service.UsuarioService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Log4j2
 public class JwtAuthenticationController {
 
     private final AuthenticationManager authenticationManager;
@@ -25,10 +29,15 @@ public class JwtAuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtPostRequestBody jwtPostRequestBody) throws Exception {
-        authenticate(jwtPostRequestBody.getUsername(), jwtPostRequestBody.getPassword());
-        final UserDetails userDetails = usuarioService.loadUserByUsername(jwtPostRequestBody.getUsername());
-        final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        try {
+            authenticate(jwtPostRequestBody.getUsername(), jwtPostRequestBody.getPassword());
+            final UserDetails userDetails = usuarioService.loadUserByUsername(jwtPostRequestBody.getUsername());
+            final String token = jwtTokenUtil.generateToken(userDetails);
+            return ResponseEntity.ok(new JwtResponse(token));
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return ResponseEntity.ok("Consute os logs");
     }
 
     private void authenticate(String username, String password) throws Exception {
