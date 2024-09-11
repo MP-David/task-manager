@@ -25,8 +25,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<BadRequestExecptionsDetails> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return new ResponseEntity<>(
+                BadRequestExecptionsDetails.builder()
+                        .timestamp(LocalDateTime.now())
+                        .title(ex.getClass().getName())
+                        .details(ex.getMessage())
+                        .status(HttpStatus.BAD_REQUEST.value()).build()
+                , HttpStatus.BAD_REQUEST);
     }
 
 }

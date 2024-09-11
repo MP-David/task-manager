@@ -17,5 +17,7 @@ public class TaskPutRequestBody {
     LocalDateTime endDate;
     PriorityEnum priorityEnum;
     Long score;
+    Long responsibleId;
+
 
 }

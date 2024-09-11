@@ -18,11 +18,18 @@ public class TaskPostRequestBody {
     @NotEmpty(message = "Descrição é obrigatório")
     String description;
     @NotNull(message = "Stage é obrigatório")
-    StageEnum stage;
+    String stage;
     @Builder.Default
     LocalDate initDate = LocalDate.now();
     LocalDate endDate;
-    PriorityEnum priorityEnum;
+    PriorityEnum priority;
     Long score;
+    Long responsibleId;
+
+    public String getStage() {
+        return stage;
+    }
+
+
 
 }

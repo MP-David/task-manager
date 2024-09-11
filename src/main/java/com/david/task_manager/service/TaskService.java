@@ -2,6 +2,8 @@ package com.david.task_manager.service;
 
 import com.david.task_manager.domain.ENUMS.StageEnum;
 import com.david.task_manager.domain.Task;
+import com.david.task_manager.domain.Usuario;
+import com.david.task_manager.dto.TaskDTO;
 import com.david.task_manager.exception.BadRequest;
 import com.david.task_manager.mapper.TaskMapper;
 import com.david.task_manager.repository.TaskRepository;
@@ -24,9 +26,15 @@ public class TaskService {
 
     private final TaskMapper taskMapper;
     private final TaskRepository taskRepository;
+    private final UsuarioService usuarioService;
 
     public List<Task> findAll() {
         return taskRepository.findAll();
+    }
+
+    public List<TaskDTO> findAllWithLimitedUserInfo() {
+        List<Task> tasks = taskRepository.findAll();
+        return taskMapper.toTaskDTOList(tasks);
     }
 
     public Page<Task> findAll(Pageable page) {
@@ -57,17 +65,23 @@ public class TaskService {
     }
 
     @Transactional
-    public Task save(TaskPostRequestBody taskPostRequestBody) {
-        validateTaskStage(taskPostRequestBody.getStage().getCodigo());
-        return taskRepository.save(taskMapper.toTask(taskPostRequestBody));
+    public TaskDTO save(TaskPostRequestBody taskPostRequestBody) {
+        Usuario usuario = usuarioService.findById(taskPostRequestBody.getResponsibleId());
+        validateTaskStage(taskPostRequestBody.getStage());
+        Task task = taskMapper.toTask(taskPostRequestBody);
+        task.setResponsible(usuario);
+        taskRepository.save(task);
+        System.out.println("Priority after mapping: " + task.getPriority());
+
+        return taskMapper.toTaskDTO(task);
     }
 
-    public void validateTaskStage(int stage) {
+    public void validateTaskStage(String stage) {
         try {
-            StageEnum.forValue(stage);
+            StageEnum.valueOf(stage);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Código de status inválido: " + stage +
-                    ". Deve estar entre " + StageEnum.getMinCodigo() + " e " + StageEnum.getMaxCodigo());
+                    ". Deve estar entre " + StageEnum.validValues());
         }
     }
 

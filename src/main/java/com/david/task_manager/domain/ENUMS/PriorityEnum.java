@@ -1,6 +1,7 @@
 package com.david.task_manager.domain.ENUMS;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum PriorityEnum {
     LOW(1),
@@ -13,17 +14,19 @@ public enum PriorityEnum {
         this.codigo = codigo;
     }
 
-    public String getName() {
+    @JsonValue
+    public String getValue() {
         return this.name();
     }
 
     @JsonCreator
-    public static PriorityEnum valueOf(int codigo) {
-        for (PriorityEnum p : PriorityEnum.values()) {
-            if (p.codigo == codigo) {
-                return p;
+    public static StageEnum forValue(String value) {
+        for (StageEnum stageEnum : StageEnum.values()) {
+            if (stageEnum.name().equalsIgnoreCase(value)) {
+                return stageEnum;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Invalid StageEnum value: " + value);
     }
+
 }

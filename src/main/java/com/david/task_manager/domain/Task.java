@@ -2,6 +2,7 @@ package com.david.task_manager.domain;
 
 import com.david.task_manager.domain.ENUMS.PriorityEnum;
 import com.david.task_manager.domain.ENUMS.StageEnum;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,7 +22,9 @@ public class Task {
     Long score;
 
     @ManyToOne
-    Usuario responsible;
+    @JoinColumn(name = "responsible_id")
+    @JsonManagedReference
+    private Usuario responsible;
 
     @Enumerated(EnumType.STRING)
     PriorityEnum priority;
