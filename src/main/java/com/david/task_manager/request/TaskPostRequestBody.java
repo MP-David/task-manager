@@ -26,10 +26,4 @@ public class TaskPostRequestBody {
     Long score;
     Long responsibleId;
 
-    public String getStage() {
-        return stage;
-    }
-
-
-
 }
