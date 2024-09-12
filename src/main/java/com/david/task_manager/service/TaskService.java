@@ -68,10 +68,10 @@ public class TaskService {
     public TaskDTO save(TaskPostRequestBody taskPostRequestBody) {
         Usuario usuario = usuarioService.findById(taskPostRequestBody.getResponsibleId());
         validateTaskStage(taskPostRequestBody.getStage());
+
         Task task = taskMapper.toTask(taskPostRequestBody);
         task.setResponsible(usuario);
         taskRepository.save(task);
-        System.out.println("Priority after mapping: " + task.getPriority());
 
         return taskMapper.toTaskDTO(task);
     }

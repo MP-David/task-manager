@@ -14,16 +14,19 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-09-11T16:33:01-0300",
+    date = "2024-09-11T17:02:17-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
 public class TaskMapperImpl implements TaskMapper {
 
+    @Autowired
+    private UsuarioMapper usuarioMapper;
     private final DatatypeFactory datatypeFactory;
 
     public TaskMapperImpl() {
@@ -49,7 +52,7 @@ public class TaskMapperImpl implements TaskMapper {
         task.setEndDate( taskPostRequestBody.getEndDate() );
         task.setScore( taskPostRequestBody.getScore() );
         task.setPriority( taskPostRequestBody.getPriority() );
-        task.setStage( mapStringToStageEnum( taskPostRequestBody.getStage() ) );
+        task.setStage( usuarioMapper.mapStringToStageEnum( taskPostRequestBody.getStage() ) );
 
         task.setInitDate( java.time.LocalDate.now() );
 
@@ -82,7 +85,7 @@ public class TaskMapperImpl implements TaskMapper {
 
         TaskDTO taskDTO = new TaskDTO();
 
-        taskDTO.setResponsible( toUsuarioLimitadoDTO( task.getResponsible() ) );
+        taskDTO.setResponsible( usuarioMapper.toUsuarioLimitadoDTO( task.getResponsible() ) );
         taskDTO.setId( task.getId() );
         taskDTO.setTitle( task.getTitle() );
         taskDTO.setDescription( task.getDescription() );
