@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
 import static com.david.task_manager.util.TaskCreator.createTaskDTOList;
 import static com.david.task_manager.util.TaskCreator.createValidTaskDTO;
 import static com.david.task_manager.util.TaskPostCreator.createMockTaskPostRequestBody;
@@ -52,7 +54,7 @@ class TaskControllerTest {
     }
 
     @Test
-    @DisplayName("Save Task whenSucessfull")
+    @DisplayName("Save Task whenSuccessful")
     void save() {
         ResponseEntity<TaskDTO> response = taskController.save(createMockTaskPostRequestBody());
 
@@ -66,29 +68,82 @@ class TaskControllerTest {
                 .extracting(TaskDTO::getTitle)
                 .isEqualTo(createValidTaskDTO().getTitle());
 
+        Assertions.assertThat(response.getBody()).isEqualTo(createValidTaskDTO());
+
     }
 
     @Test
+    @DisplayName("Return list of TaskDTO whenSuccessful")
     void findAll() {
+        ResponseEntity<List<TaskDTO>> response = taskController.findAll();
+
+        Assertions.assertThat(response).isNotNull()
+                .extracting(ResponseEntity::getStatusCode)
+                .isEqualTo(HttpStatus.OK);
+
+        Assertions.assertThat(response.getBody())
+                .isNotNull()
+                .hasSize(1);
+
+        Assertions.assertThat(response.getBody().get(0))
+                .isEqualTo(createValidTaskDTO());
+
+        Assertions.assertThat(response.getBody().get(0)).isEqualTo(createValidTaskDTO());
     }
 
     @Test
-    void testFindAll() {
-    }
-
-    @Test
+    @DisplayName("Return TaskDTO whenSuccessful")
     void findByTitle() {
+        ResponseEntity<List<TaskDTO>> byTitle = taskController.findByTitle(createMockTaskPostRequestBody().getTitle());
+
+        Assertions.assertThat(byTitle).isNotNull()
+                .extracting(ResponseEntity::getStatusCode)
+                .isEqualTo(HttpStatus.OK);
+
+        Assertions.assertThat(byTitle.getBody())
+                        .hasSize(1);
+
+        Assertions.assertThat(byTitle.getBody().get(0).getTitle())
+                .isEqualTo(createValidTaskDTO().getTitle());
+
+        Assertions.assertThat(byTitle.getBody().get(0)).isEqualTo(createValidTaskDTO());
     }
 
     @Test
     void findById() {
+        ResponseEntity<TaskDTO> response = taskController.findById(1L);
+
+        Assertions.assertThat(response)
+                .isNotNull().extracting(ResponseEntity::getStatusCode)
+                .isEqualTo(HttpStatus.OK);
+
+        Assertions.assertThat(response.getBody().getId()).isEqualTo(createValidTaskDTO().getId());
+
+        Assertions.assertThat(response.getBody()).isEqualTo(createValidTaskDTO());
+
     }
 
     @Test
     void update() {
+        ResponseEntity<Void> update = taskController.update(ArgumentMatchers.anyLong(), ArgumentMatchers.any(TaskPutRequestBody.class));
+
+        Assertions.assertThatCode(() -> taskController.update(ArgumentMatchers.anyLong(), ArgumentMatchers.any(TaskPutRequestBody.class)))
+                .doesNotThrowAnyException();
+
+        Assertions.assertThat(update).isNotNull();
+
+        Assertions.assertThat(update.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 
     @Test
     void delete() {
+        ResponseEntity<Void> delete = taskController.delete(1L);
+
+        Assertions.assertThatCode(() -> taskController.delete(ArgumentMatchers.anyLong()))
+                .doesNotThrowAnyException();
+
+        Assertions.assertThat(delete).isNotNull();
+
+        Assertions.assertThat(delete.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
 }
