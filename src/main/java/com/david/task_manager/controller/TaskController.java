@@ -29,10 +29,10 @@ public class TaskController {
         return new ResponseEntity<>(taskService.save(taskPostRequestBody), HttpStatus.CREATED);
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<Task>> findAll(Pageable pageable) {
-//            return ResponseEntity.ok(taskService.findAll(pageable));
-//    }
+    @GetMapping(path = "page")
+    public ResponseEntity<Page<TaskDTO>> findAll(Pageable pageable) {
+            return ResponseEntity.ok(taskService.findAll(pageable));
+    }
 
     @GetMapping
     public ResponseEntity<List<TaskDTO>> findAll() {
@@ -40,13 +40,13 @@ public class TaskController {
     }
 
     @GetMapping(path = "find")
-    public ResponseEntity<List<Task>> findByTitle(@RequestParam(required = true) String title) {
+    public ResponseEntity<List<TaskDTO>> findByTitle(@RequestParam(required = true) String title) {
         return ResponseEntity.ok(taskService.findByTitle(title));
     }
 
     @GetMapping(path = "find/{id}")
-    public ResponseEntity<Task> findById(@PathVariable long id) {
-        return ResponseEntity.ok(taskService.findByIdOrElseThrowBadRequest(id));
+    public ResponseEntity<TaskDTO> findById(@PathVariable long id) {
+        return ResponseEntity.ok(taskService.findById(id));
     }
 
     @PutMapping(path = "/{id}")
