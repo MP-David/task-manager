@@ -1,6 +1,5 @@
 package com.david.task_manager.controller;
 
-import com.david.task_manager.domain.Task;
 import com.david.task_manager.dto.TaskDTO;
 import com.david.task_manager.request.TaskPostRequestBody;
 import com.david.task_manager.request.TaskPutRequestBody;
@@ -8,7 +7,6 @@ import com.david.task_manager.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
