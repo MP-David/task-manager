@@ -73,7 +73,7 @@ class TaskControllerTest {
     }
 
     @Test
-    @DisplayName("Return list of TaskDTO whenSuccessful")
+    @DisplayName("findAll Return list of TaskDTO whenSuccessful")
     void findAll() {
         ResponseEntity<List<TaskDTO>> response = taskController.findAll();
 
@@ -92,7 +92,7 @@ class TaskControllerTest {
     }
 
     @Test
-    @DisplayName("Return TaskDTO whenSuccessful")
+    @DisplayName("findByTitle Return TaskDTO whenSuccessful")
     void findByTitle() {
         ResponseEntity<List<TaskDTO>> byTitle = taskController.findByTitle(createMockTaskPostRequestBody().getTitle());
 
@@ -110,6 +110,7 @@ class TaskControllerTest {
     }
 
     @Test
+    @DisplayName("findById Return TaskDTO whenSuccessful")
     void findById() {
         ResponseEntity<TaskDTO> response = taskController.findById(1L);
 
@@ -124,6 +125,7 @@ class TaskControllerTest {
     }
 
     @Test
+    @DisplayName("update Task whenSuccessful")
     void update() {
         ResponseEntity<Void> update = taskController.update(ArgumentMatchers.anyLong(), ArgumentMatchers.any(TaskPutRequestBody.class));
 
@@ -136,6 +138,7 @@ class TaskControllerTest {
     }
 
     @Test
+    @DisplayName("delete Task whenSuccessful")
     void delete() {
         ResponseEntity<Void> delete = taskController.delete(1L);
 
