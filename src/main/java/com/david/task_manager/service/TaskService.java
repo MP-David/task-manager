@@ -14,7 +14,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -28,17 +27,19 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final UsuarioService usuarioService;
 
-    public List<Task> findAll() {
-        return taskRepository.findAll();
-    }
-
     public List<TaskDTO> findAllWithLimitedUserInfo() {
         List<Task> tasks = taskRepository.findAll();
         return taskMapper.toTaskDTOList(tasks);
     }
 
-    public Page<Task> findAll(Pageable page) {
-        return taskRepository.findAll(page);
+    public Page<TaskDTO> findAll(Pageable page) {
+        Page<Task> taskPage = taskRepository.findAll(page);
+        return taskMapper.toTaskDTOPage(taskPage);
+    }
+
+    public TaskDTO findById(long id) {
+        Task task = findByIdOrElseThrowBadRequest(id);
+        return taskMapper.toTaskDTO(task);
     }
 
     public Task findByIdOrElseThrowBadRequest(long id) {
@@ -46,8 +47,9 @@ public class TaskService {
                 .orElseThrow(() -> new BadRequest("Id não encontrado"));
     }
 
-    public List<Task> findByTitle(String title) {
-        return taskRepository.findByTitle(title);
+    public List<TaskDTO> findByTitle(String title) {
+        List<Task> byTitle = taskRepository.findByTitle(title);
+        return taskMapper.toTaskDTOList(byTitle);
     }
 
     @Transactional

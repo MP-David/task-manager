@@ -1,5 +1,6 @@
 package com.david.task_manager.mapper;
 
+import org.springframework.data.domain.Page;
 import com.david.task_manager.domain.Task;
 import com.david.task_manager.domain.Usuario;
 import com.david.task_manager.dto.TaskDTO;
@@ -25,6 +26,10 @@ public interface TaskMapper{
     TaskDTO toTaskDTO(Task task);
 
     List<TaskDTO> toTaskDTOList(List<Task> tasks);
+
+    default Page<TaskDTO> toTaskDTOPage(Page<Task> tasks) {
+        return tasks.map(this::toTaskDTO);
+    }
 
     default Usuario mapIdToUsuario(Long id) {
         if (id == null) {
