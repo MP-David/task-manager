@@ -1,4 +1,4 @@
-package com.david.task_manager.security;
+package com.david.task_manager.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

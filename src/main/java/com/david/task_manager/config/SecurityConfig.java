@@ -1,4 +1,4 @@
-package com.david.task_manager.security;
+package com.david.task_manager.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
