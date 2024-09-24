@@ -19,11 +19,11 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-09-16T17:19:11-0300",
+    date = "2024-09-24T09:46:51-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
-public class TaskMapperImpl implements TaskMapper {
+public class TaskMapperImpl extends TaskMapper {
 
     @Autowired
     private UsuarioMapper usuarioMapper;
