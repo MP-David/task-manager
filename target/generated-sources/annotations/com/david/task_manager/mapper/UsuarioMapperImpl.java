@@ -3,15 +3,19 @@ package com.david.task_manager.mapper;
 import com.david.task_manager.domain.Usuario;
 import com.david.task_manager.request.UsuarioPostRequestBody;
 import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-09-24T09:47:15-0300",
+    date = "2024-09-24T09:49:52-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
 public class UsuarioMapperImpl extends UsuarioMapper {
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public Usuario toUsuario(UsuarioPostRequestBody usuarioPostRequestBody) {
@@ -25,8 +29,7 @@ public class UsuarioMapperImpl extends UsuarioMapper {
         usuario.setUsername( usuarioPostRequestBody.getUsername() );
         usuario.setPassword( usuarioPostRequestBody.getPassword() );
         usuario.setEmail( usuarioPostRequestBody.getEmail() );
-
-        usuario.setRoles( mapRoles(usuarioPostRequestBody.getRoles()) );
+        usuario.setRoles( roleMapper.mapRoles( usuarioPostRequestBody.getRoles() ) );
 
         return usuario;
     }

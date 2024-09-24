@@ -15,17 +15,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {RoleMapper.class})
 public abstract class UsuarioMapper {
 
-    protected RoleRepository roleRepository;
-
-    @Autowired
-    public void setRoleRepository(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
-
-    @Mapping(target = "roles", expression = "java(mapRoles(usuarioPostRequestBody.getRoles()))")
     public abstract Usuario toUsuario(UsuarioPostRequestBody usuarioPostRequestBody);
 
     protected StageEnum mapStringToStageEnum(String stage) {
@@ -46,14 +38,5 @@ public abstract class UsuarioMapper {
         return dto;
     }
 
-    protected Set<Role> mapRoles(Set<RoleEnum> roleEnums) {
-        if (roleEnums == null) {
-            return null;
-        }
-        return roleEnums.stream()
-                .map(roleEnum -> roleRepository.findByName(roleEnum)
-                        .orElseThrow(() -> new RuntimeException("Role not found: " + roleEnum)))
-                .collect(Collectors.toSet());
-    }
 
 }
