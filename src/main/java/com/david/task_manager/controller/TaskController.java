@@ -6,6 +6,7 @@ import com.david.task_manager.request.TaskPutRequestBody;
 import com.david.task_manager.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class TaskController {
     }
 
     @GetMapping(path = "page")
-    public ResponseEntity<Page<TaskDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<TaskDTO>> findAll(@ParameterObject Pageable pageable) {
             return ResponseEntity.ok(taskService.findAll(pageable));
     }
 
