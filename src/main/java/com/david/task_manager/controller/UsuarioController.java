@@ -1,6 +1,7 @@
 package com.david.task_manager.controller;
 
 import com.david.task_manager.domain.Usuario;
+import com.david.task_manager.dto.UsuarioDTO;
 import com.david.task_manager.request.UsuarioPostRequestBody;
 import com.david.task_manager.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> findAll() {
+    public ResponseEntity<List<UsuarioDTO>> findAll() {
         return ResponseEntity.ok(usuarioService.findAll());
     }
 }
