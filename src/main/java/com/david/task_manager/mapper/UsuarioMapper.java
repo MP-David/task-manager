@@ -24,11 +24,7 @@ public abstract class UsuarioMapper {
         if (usuario == null) {
             return null;
         }
-        UsuarioDTO dto = new UsuarioDTO();
-        dto.setId(usuario.getId());
-        dto.setName(usuario.getName());
-        dto.setUsername(usuario.getUsername());
-        return dto;
+        return new UsuarioDTO(usuario.getId(), usuario.getName(), usuario.getUsername());
     }
 
     public List<UsuarioDTO> toUsuario(List<Usuario> usuarios) {
