@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-02T10:36:41-0300",
+    date = "2024-10-02T17:49:07-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -83,19 +83,19 @@ public class TaskMapperImpl extends TaskMapper {
             return null;
         }
 
-        TaskDTO taskDTO = new TaskDTO();
+        TaskDTO.TaskDTOBuilder taskDTO = TaskDTO.builder();
 
-        taskDTO.setResponsible( usuarioMapper.toUsuarioLimitadoDTO( task.getResponsible() ) );
-        taskDTO.setId( task.getId() );
-        taskDTO.setTitle( task.getTitle() );
-        taskDTO.setDescription( task.getDescription() );
-        taskDTO.setInitDate( task.getInitDate() );
-        taskDTO.setEndDate( task.getEndDate() );
-        taskDTO.setScore( task.getScore() );
-        taskDTO.setPriority( task.getPriority() );
-        taskDTO.setStage( task.getStage() );
+        taskDTO.responsible( usuarioMapper.toUsuarioLimitadoDTO( task.getResponsible() ) );
+        taskDTO.id( task.getId() );
+        taskDTO.title( task.getTitle() );
+        taskDTO.description( task.getDescription() );
+        taskDTO.initDate( task.getInitDate() );
+        taskDTO.endDate( task.getEndDate() );
+        taskDTO.score( task.getScore() );
+        taskDTO.priority( task.getPriority() );
+        taskDTO.stage( task.getStage() );
 
-        return taskDTO;
+        return taskDTO.build();
     }
 
     @Override

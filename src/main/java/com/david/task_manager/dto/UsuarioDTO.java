@@ -10,5 +10,9 @@ public class UsuarioDTO {
     private String name;
     private String username;
 
-    // getters e setters
+    public UsuarioDTO(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.username = email;
+    }
 }
