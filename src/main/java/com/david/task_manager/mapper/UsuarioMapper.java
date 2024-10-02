@@ -1,19 +1,12 @@
 package com.david.task_manager.mapper;
 
-import com.david.task_manager.domain.ENUMS.RoleEnum;
 import com.david.task_manager.domain.ENUMS.StageEnum;
-import com.david.task_manager.domain.Role;
 import com.david.task_manager.domain.Usuario;
-import com.david.task_manager.dto.UsuarioLimitadoDTO;
-import com.david.task_manager.repository.RoleRepository;
+import com.david.task_manager.dto.UsuarioDTO;
 import com.david.task_manager.request.UsuarioPostRequestBody;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {RoleMapper.class})
 public abstract class UsuarioMapper {
@@ -27,16 +20,18 @@ public abstract class UsuarioMapper {
         return StageEnum.forValue(stage.toUpperCase());
     }
 
-    protected UsuarioLimitadoDTO toUsuarioLimitadoDTO(Usuario usuario) {
+    protected UsuarioDTO toUsuarioLimitadoDTO(Usuario usuario) {
         if (usuario == null) {
             return null;
         }
-        UsuarioLimitadoDTO dto = new UsuarioLimitadoDTO();
+        UsuarioDTO dto = new UsuarioDTO();
         dto.setId(usuario.getId());
         dto.setName(usuario.getName());
         dto.setUsername(usuario.getUsername());
         return dto;
     }
 
-
+    public List<UsuarioDTO> toUsuario(List<Usuario> usuarios) {
+        return usuarios.stream().map(this::toUsuarioLimitadoDTO).toList();
+    }
 }

@@ -1,9 +1,11 @@
 package com.david.task_manager.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class UsuarioLimitadoDTO {
+@Builder
+public class UsuarioDTO {
     private Long id;
     private String name;
     private String username;

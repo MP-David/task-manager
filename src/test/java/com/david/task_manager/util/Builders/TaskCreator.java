@@ -1,9 +1,9 @@
-package com.david.task_manager.util;
+package com.david.task_manager.util.Builders;
 
 import com.david.task_manager.domain.ENUMS.PriorityEnum;
 import com.david.task_manager.domain.ENUMS.StageEnum;
 import com.david.task_manager.dto.TaskDTO;
-import com.david.task_manager.dto.UsuarioLimitadoDTO;
+import com.david.task_manager.dto.UsuarioDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +23,7 @@ public class TaskCreator {
         task.setEndDate(LocalDate.now().plusDays(7));
         task.setScore(100L);
 
-        UsuarioLimitadoDTO responsavel = new UsuarioLimitadoDTO();
+        UsuarioDTO responsavel = new UsuarioDTO();
         responsavel.setId(1L);
         responsavel.setName("Usuário Teste");
         task.setResponsible(responsavel);

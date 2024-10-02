@@ -19,9 +19,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-import static com.david.task_manager.util.TaskCreator.createTaskDTOList;
-import static com.david.task_manager.util.TaskCreator.createValidTaskDTO;
-import static com.david.task_manager.util.TaskPostCreator.createMockTaskPostRequestBody;
+import static com.david.task_manager.util.Builders.TaskCreator.createTaskDTOList;
+import static com.david.task_manager.util.Builders.TaskCreator.createValidTaskDTO;
+import static com.david.task_manager.util.Request.TaskPostCreator.createMockTaskPostRequestBody;
 
 @ExtendWith(SpringExtension.class)
 class TaskControllerTest {
