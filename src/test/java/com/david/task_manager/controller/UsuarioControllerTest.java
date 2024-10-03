@@ -13,6 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
+import static com.david.task_manager.util.Builders.UsuarioCreator.createUsuario;
 import static com.david.task_manager.util.Builders.UsuarioCreator.createUsuarioDTO;
 import static com.david.task_manager.util.Request.UsuarioPostCreator.createMockUsuarioPostRequestBody;
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +35,7 @@ class UsuarioControllerTest {
                 .thenReturn(List.of(createUsuarioDTO()));
 
         BDDMockito.when(usuarioServiceMock.save(ArgumentMatchers.any(UsuarioPostRequestBody.class)))
-                .thenReturn(createUsuarioDTO());
+                .thenReturn(createUsuario());
 
     }
 
