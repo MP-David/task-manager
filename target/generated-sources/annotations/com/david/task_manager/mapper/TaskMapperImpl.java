@@ -85,7 +85,7 @@ public class TaskMapperImpl extends TaskMapper {
 
         TaskDTO.TaskDTOBuilder taskDTO = TaskDTO.builder();
 
-        taskDTO.responsible( usuarioMapper.toUsuarioLimitadoDTO( task.getResponsible() ) );
+        taskDTO.responsible( usuarioMapper.toUsuarioDTO( task.getResponsible() ) );
         taskDTO.id( task.getId() );
         taskDTO.title( task.getTitle() );
         taskDTO.description( task.getDescription() );

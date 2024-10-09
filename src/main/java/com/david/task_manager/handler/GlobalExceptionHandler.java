@@ -1,7 +1,7 @@
 package com.david.task_manager.handler;
 
 import com.david.task_manager.exception.BadRequest;
-import com.david.task_manager.exception.BadRequestExecptionsDetails;
+import com.david.task_manager.exception.BadRequestExceptionsDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadRequest.class)
-    public ResponseEntity<BadRequestExecptionsDetails> badRequest(BadRequest ex) {
+    public ResponseEntity<BadRequestExceptionsDetails> badRequest(BadRequest ex) {
         return new ResponseEntity<>(
-                BadRequestExecptionsDetails.builder()
+                BadRequestExceptionsDetails.builder()
                         .timestamp(LocalDateTime.now())
                         .details(ex.getMessage())
                         .status(HttpStatus.BAD_REQUEST.value())
@@ -25,9 +25,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<BadRequestExecptionsDetails> handleIllegalArgumentException(IllegalArgumentException ex) {
+    public ResponseEntity<BadRequestExceptionsDetails> handleIllegalArgumentException(IllegalArgumentException ex) {
         return new ResponseEntity<>(
-                BadRequestExecptionsDetails.builder()
+                BadRequestExceptionsDetails.builder()
                         .timestamp(LocalDateTime.now())
                         .title(ex.getClass().getName())
                         .details(ex.getMessage())
@@ -36,3 +36,5 @@ public class GlobalExceptionHandler {
     }
 
 }
+
+

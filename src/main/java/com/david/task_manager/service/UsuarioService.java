@@ -1,7 +1,5 @@
 package com.david.task_manager.service;
 
-import com.david.task_manager.domain.ENUMS.RoleEnum;
-import com.david.task_manager.domain.Role;
 import com.david.task_manager.domain.Usuario;
 import com.david.task_manager.dto.UsuarioDTO;
 import com.david.task_manager.exception.BadRequest;
@@ -65,7 +63,7 @@ public class UsuarioService implements UserDetailsService {
 
     public List<UsuarioDTO> findAll() {
         List<Usuario> all = usuarioRepository.findAll();
-        return usuarioMapper.toUsuario(all);
+        return usuarioMapper.toUsuarioDto(all);
     }
 
     public Usuario findById(long id) {
