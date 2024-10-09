@@ -2,7 +2,7 @@ package com.david.task_manager.service;
 
 import com.david.task_manager.domain.Usuario;
 import com.david.task_manager.dto.UsuarioDTO;
-import com.david.task_manager.exception.BadRequest;
+import com.david.task_manager.exception.UserNotFoundException;
 import com.david.task_manager.mapper.UsuarioMapper;
 import com.david.task_manager.repository.RoleRepository;
 import com.david.task_manager.repository.UsuarioRepository;
@@ -34,7 +34,7 @@ public class UsuarioService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = findByUsername(username);
-        if(usuario == null) throw new BadRequest("User não encontrado!");
+        if(usuario == null) throw new UserNotFoundException("User não encontrado!");
 
 
         Set<SimpleGrantedAuthority> authorities = roleRepository.findRolesByUserId(usuario.getId()).stream()
@@ -53,12 +53,11 @@ public class UsuarioService implements UserDetailsService {
 
     @Transactional
     public Usuario save(UsuarioPostRequestBody usuarioPostRequestBody) {
-        if (findByUsername(usuarioPostRequestBody.getUsername()) != null) {
-            throw new BadRequest("User já cadastrado!");
+        if (findByUsername(usuarioPostRequestBody.username()) != null) {
+            throw new UserNotFoundException("User já cadastrado!");
         }
 
-        usuarioPostRequestBody.setPassword(passwordEncoder.encode(usuarioPostRequestBody.getPassword()));
-         return usuarioRepository.save(usuarioMapper.toUsuario(usuarioPostRequestBody));
+         return usuarioRepository.save(usuarioMapper.toUsuario(usuarioPostRequestBody, passwordEncoder));
     }
 
     public List<UsuarioDTO> findAll() {
@@ -68,7 +67,7 @@ public class UsuarioService implements UserDetailsService {
 
     public Usuario findById(long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new BadRequest("Usuário não encontrado"));
+                .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
     }
 
     public Usuario findByUsername(String username) {

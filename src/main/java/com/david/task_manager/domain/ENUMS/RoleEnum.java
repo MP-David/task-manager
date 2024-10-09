@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum RoleEnum {
+
     ROLE_ADMIN(1),
     ROLE_USER(2),
     ROLE_DEVELOPER(3);

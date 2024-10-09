@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum StageEnum {
-    BACKLOG(0), ON_GOING(1), DONE(2);
+
+    BACKLOG(0),
+    ON_GOING(1),
+    DONE(2);
 
     private int codigo;
 
