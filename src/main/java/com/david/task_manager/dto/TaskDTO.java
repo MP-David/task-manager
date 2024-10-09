@@ -20,5 +20,4 @@ public class TaskDTO {
     private PriorityEnum priority;
     private StageEnum stage;
 
-    // getters e setters
 }
