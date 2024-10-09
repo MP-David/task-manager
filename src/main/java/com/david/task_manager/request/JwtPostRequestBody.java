@@ -1,9 +1,7 @@
 package com.david.task_manager.request;
 
-import lombok.Data;
+import jakarta.validation.constraints.NotEmpty;
 
-@Data
-public class JwtPostRequestBody {
-        private String username;
-        private String password;
-}
+public record JwtPostRequestBody(@NotEmpty String username,
+                                 @NotEmpty String password
+) {}
