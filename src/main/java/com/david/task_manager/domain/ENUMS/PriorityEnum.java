@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum PriorityEnum {
+
     LOW(1),
     MEDIUM(2),
     HIGH(3);

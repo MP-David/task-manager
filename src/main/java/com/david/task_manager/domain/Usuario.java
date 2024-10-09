@@ -1,6 +1,5 @@
 package com.david.task_manager.domain;
 
-import com.david.task_manager.domain.ENUMS.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

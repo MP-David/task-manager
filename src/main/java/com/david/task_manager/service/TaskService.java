@@ -4,7 +4,7 @@ import com.david.task_manager.domain.ENUMS.StageEnum;
 import com.david.task_manager.domain.Task;
 import com.david.task_manager.domain.Usuario;
 import com.david.task_manager.dto.TaskDTO;
-import com.david.task_manager.exception.BadRequest;
+import com.david.task_manager.exception.TaskNotFoundException;
 import com.david.task_manager.mapper.TaskMapper;
 import com.david.task_manager.repository.TaskRepository;
 import com.david.task_manager.request.TaskPostRequestBody;
@@ -44,7 +44,7 @@ public class TaskService {
 
     public Task findByIdOrElseThrowBadRequest(long id) {
         return taskRepository.findById(id)
-                .orElseThrow(() -> new BadRequest("Id não encontrado"));
+                .orElseThrow(() -> new TaskNotFoundException("Id não encontrado"));
     }
 
     public List<TaskDTO> findByTitle(String title) {
@@ -68,8 +68,8 @@ public class TaskService {
 
     @Transactional
     public TaskDTO save(TaskPostRequestBody taskPostRequestBody) {
-        Usuario usuario = usuarioService.findById(taskPostRequestBody.getResponsibleId());
-        validateTaskStage(taskPostRequestBody.getStage());
+        Usuario usuario = usuarioService.findById(taskPostRequestBody.responsibleId());
+        validateTaskStage(taskPostRequestBody.stage());
 
         Task task = taskMapper.toTask(taskPostRequestBody);
         task.setResponsible(usuario);

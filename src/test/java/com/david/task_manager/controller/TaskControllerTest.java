@@ -94,7 +94,7 @@ class TaskControllerTest {
     @Test
     @DisplayName("findByTitle Return TaskDTO whenSuccessful")
     void findByTitle() {
-        ResponseEntity<List<TaskDTO>> byTitle = taskController.findByTitle(createMockTaskPostRequestBody().getTitle());
+        ResponseEntity<List<TaskDTO>> byTitle = taskController.findByTitle(createMockTaskPostRequestBody().title());
 
         Assertions.assertThat(byTitle).isNotNull()
                 .extracting(ResponseEntity::getStatusCode)

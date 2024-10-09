@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-02T17:49:07-0300",
+    date = "2024-10-09T10:59:26-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -46,13 +46,13 @@ public class TaskMapperImpl extends TaskMapper {
 
         Task task = new Task();
 
-        task.setResponsible( mapIdToUsuario( taskPostRequestBody.getResponsibleId() ) );
-        task.setTitle( taskPostRequestBody.getTitle() );
-        task.setDescription( taskPostRequestBody.getDescription() );
-        task.setEndDate( taskPostRequestBody.getEndDate() );
-        task.setScore( taskPostRequestBody.getScore() );
-        task.setPriority( taskPostRequestBody.getPriority() );
-        task.setStage( usuarioMapper.mapStringToStageEnum( taskPostRequestBody.getStage() ) );
+        task.setResponsible( mapIdToUsuario( taskPostRequestBody.responsibleId() ) );
+        task.setTitle( taskPostRequestBody.title() );
+        task.setDescription( taskPostRequestBody.description() );
+        task.setEndDate( taskPostRequestBody.endDate() );
+        task.setScore( taskPostRequestBody.score() );
+        task.setPriority( taskPostRequestBody.priority() );
+        task.setStage( usuarioMapper.mapStringToStageEnum( taskPostRequestBody.stage() ) );
 
         task.setInitDate( java.time.LocalDate.now() );
 
@@ -67,12 +67,12 @@ public class TaskMapperImpl extends TaskMapper {
 
         Task task = new Task();
 
-        task.setResponsible( mapIdToUsuario( taskPutRequestBody.getResponsibleId() ) );
-        task.setTitle( taskPutRequestBody.getTitle() );
-        task.setDescription( taskPutRequestBody.getDescription() );
-        task.setEndDate( xmlGregorianCalendarToLocalDate( localDateTimeToXmlGregorianCalendar( taskPutRequestBody.getEndDate() ) ) );
-        task.setScore( taskPutRequestBody.getScore() );
-        task.setStage( taskPutRequestBody.getStage() );
+        task.setResponsible( mapIdToUsuario( taskPutRequestBody.responsibleId() ) );
+        task.setTitle( taskPutRequestBody.title() );
+        task.setDescription( taskPutRequestBody.description() );
+        task.setEndDate( xmlGregorianCalendarToLocalDate( localDateTimeToXmlGregorianCalendar( taskPutRequestBody.endDate() ) ) );
+        task.setScore( taskPutRequestBody.score() );
+        task.setStage( taskPutRequestBody.stage() );
 
         return task;
     }

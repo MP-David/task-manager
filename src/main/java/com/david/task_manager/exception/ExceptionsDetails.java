@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class BadRequestExceptionsDetails {
+public class ExceptionsDetails {
         private String title;
         private int status;
         private String details;

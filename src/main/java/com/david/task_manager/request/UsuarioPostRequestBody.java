@@ -13,4 +13,7 @@ public record UsuarioPostRequestBody (
         @NotEmpty String password,
         String email,
         @NotEmpty Set<RoleEnum> roles
-) {}
+) {
+
+
+}
