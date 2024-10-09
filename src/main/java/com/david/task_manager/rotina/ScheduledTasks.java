@@ -13,7 +13,6 @@ public class ScheduledTasks {
 
     @Scheduled(cron = "0 0 2 * * ?")
     public void defineScore() {
-        // código a ser executado diariamente às 2:00 AM
         scoreService.setTaskRepository();
     }
 }
