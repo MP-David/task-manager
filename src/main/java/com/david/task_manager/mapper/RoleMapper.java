@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
-public class RoleMapper {
+public abstract class RoleMapper {
 
     protected RoleRepository roleRepository;
 

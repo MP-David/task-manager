@@ -1,5 +1,6 @@
-package com.david.task_manager.config;
+package com.david.task_manager.config.security;
 
+import com.david.task_manager.config.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

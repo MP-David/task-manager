@@ -20,14 +20,14 @@ public abstract class UsuarioMapper {
         return StageEnum.forValue(stage.toUpperCase());
     }
 
-    protected UsuarioDTO toUsuarioLimitadoDTO(Usuario usuario) {
+    protected UsuarioDTO toUsuarioDTO(Usuario usuario) {
         if (usuario == null) {
             return null;
         }
         return new UsuarioDTO(usuario.getId(), usuario.getName(), usuario.getUsername());
     }
 
-    public List<UsuarioDTO> toUsuario(List<Usuario> usuarios) {
-        return usuarios.stream().map(this::toUsuarioLimitadoDTO).toList();
+    public List<UsuarioDTO> toUsuarioDto(List<Usuario> usuarios) {
+        return usuarios.stream().map(this::toUsuarioDTO).toList();
     }
 }
