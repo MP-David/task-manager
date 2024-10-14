@@ -13,6 +13,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     Optional<Role> findByName(RoleEnum name);
 
-    @Query(value = "SELECT role_id FROM usuario_roles r WHERE r.usuario_id = :usuarioId", nativeQuery = true)
+    @Query(value = "SELECT * FROM role WHERE id IN (SELECT role_id FROM usuario_roles r WHERE r.usuario_id = :usuarioId)", nativeQuery = true)
     Set<Role> findRolesByUserId(@Param("usuarioId") Long usuarioId);
 }

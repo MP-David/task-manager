@@ -3,6 +3,7 @@ package com.david.task_manager.service;
 import com.david.task_manager.domain.Usuario;
 import com.david.task_manager.dto.UsuarioDTO;
 import com.david.task_manager.exception.UserNotFoundException;
+import com.david.task_manager.mapper.RoleMapper;
 import com.david.task_manager.mapper.UsuarioMapper;
 import com.david.task_manager.repository.RoleRepository;
 import com.david.task_manager.repository.UsuarioRepository;
