@@ -22,4 +22,6 @@ public class JwtService {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+
+    //just a test
 }
