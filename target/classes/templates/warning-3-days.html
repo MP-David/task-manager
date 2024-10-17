@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificação de Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #d3d3d3;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            font-size: 24px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .task-details {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .task-details strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 18px;
+            color: #555;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Notificação de Task</h1>
+    <p>Olá,</p>
+    <p>Sua task será encerrada em 1 semana. Confira abaixo os detalhes:</p>
+    <div class="task-details">
+        <strong>Nome da Task: {{nomeTask}}</strong>
+        <strong>Número da Task: {{numeroTask}}</strong>
+        <strong>Score: {{scoreTask}}</strong>
+    </div>
+    <p>Certifique-se de concluir todas as ações necessárias antes do prazo final.</p>
+    <div class="footer">
+        <p>Atenciosamente,</p>
+        <p>Equipe de Gerenciamento de Tasks</p>
+    </div>
+</div>
+</body>
+</html>
