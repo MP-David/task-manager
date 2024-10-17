@@ -78,6 +78,15 @@ public class TaskService {
         return taskMapper.toTaskDTO(task);
     }
 
+    @Transactional
+    public void saveAll(List<Task> tasks) {
+        taskRepository.saveAll(tasks);
+    }
+
+    public List<Task> findValidTasks(StageEnum stage) {
+        return taskRepository.findValidTasks(stage);
+    }
+
     public void validateTaskStage(String stage) {
         try {
             StageEnum.valueOf(stage);

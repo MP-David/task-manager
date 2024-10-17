@@ -15,16 +15,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScoreService {
 
-    private final TaskRepository taskRepository;
+    private final TaskService taskService;
 
     public void setTaskRepository() {
-        List<Task> tasks = taskRepository.findValidTasks(StageEnum.DONE);
+        List<Task> tasks = taskService.findValidTasks(StageEnum.DONE);
 
         for (Task task : tasks) {
             long score = calculateScore(task.getPriority(), task.getEndDate());
             task.setScore(score);
         }
-        taskRepository.saveAll(tasks);
+        taskService.saveAll(tasks);
     }
 
 
