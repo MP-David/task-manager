@@ -46,7 +46,7 @@ public class MailController {
                 variables.put("scoreTask", task.getScore());
 
                 String htmlContent = generateHtmlContent("warning-3-days", variables);
-                sendHtmlMail("lelouchgodmember@gmail.com", task.getResponsible().getEmail(), "Task Manager", htmlContent);
+                sendHtmlMail("mail@gmail.com", task.getResponsible().getEmail(), "Task Manager", htmlContent);
 
             } catch (Exception e) {
                 log.error("Erro ao enviar e-mail ao: " + task.getResponsible().getEmail() + "Erro: " + e.getMessage());

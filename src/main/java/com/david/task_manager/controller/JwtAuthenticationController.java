@@ -24,7 +24,7 @@ public class JwtAuthenticationController {
     private final JwtTokenUtil jwtTokenUtil;
     private final UsuarioService usuarioService;
 
-    @PostMapping("/authenticate")
+    @PostMapping()
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtPostRequestBody jwtPostRequestBody) throws Exception {
         try {
             jwtService.authenticate(jwtPostRequestBody.username(), jwtPostRequestBody.password());

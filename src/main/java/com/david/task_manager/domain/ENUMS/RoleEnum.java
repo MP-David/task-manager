@@ -15,10 +15,6 @@ public enum RoleEnum {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
-    }
-
     @JsonValue
     public String getName() {
         return name();
@@ -28,15 +24,6 @@ public enum RoleEnum {
     public static RoleEnum fromString(String value) {
         for (RoleEnum roleEnum : RoleEnum.values()) {
             if (roleEnum.name().equalsIgnoreCase(value)) {
-                return roleEnum;
-            }
-        }
-        throw new IllegalArgumentException("Invalid RoleEnum value: " + value);
-    }
-
-    public static RoleEnum fromInt(int value) {
-        for (RoleEnum roleEnum : RoleEnum.values()) {
-            if (roleEnum.value == value) {
                 return roleEnum;
             }
         }

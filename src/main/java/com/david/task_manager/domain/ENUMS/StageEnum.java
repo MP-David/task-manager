@@ -33,10 +33,6 @@ public enum StageEnum {
         return null;
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-
     public static List<String> validValues() {
         List<String> list = new ArrayList<>();
         for (StageEnum value : StageEnum.values()) {

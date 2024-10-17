@@ -12,7 +12,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    @Column(unique = true, length = 255)
+    @Column(unique = true)
     private RoleEnum name;
 
 }
