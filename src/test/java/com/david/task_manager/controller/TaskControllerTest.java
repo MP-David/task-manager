@@ -35,7 +35,7 @@ class TaskControllerTest {
     @BeforeEach
     void setUp() {
 
-        BDDMockito.when(taskServiceMock.findAllWithLimitedUserInfo())
+        BDDMockito.when(taskServiceMock.findAll())
                 .thenReturn(createTaskDTOList());
 
         BDDMockito.when(taskServiceMock.findById(ArgumentMatchers.anyLong()))

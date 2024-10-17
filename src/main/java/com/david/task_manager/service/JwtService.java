@@ -23,5 +23,4 @@ public class JwtService {
         }
     }
 
-    //just a test
 }

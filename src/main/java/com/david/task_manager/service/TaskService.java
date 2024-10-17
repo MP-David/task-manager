@@ -27,7 +27,7 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final UsuarioService usuarioService;
 
-    public List<TaskDTO> findAllWithLimitedUserInfo() {
+    public List<TaskDTO> findAll() {
         List<Task> tasks = taskRepository.findAll();
         return taskMapper.toTaskDTOList(tasks);
     }

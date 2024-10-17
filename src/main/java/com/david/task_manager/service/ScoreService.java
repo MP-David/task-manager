@@ -30,29 +30,17 @@ public class ScoreService {
 
     public static int calculateScore(PriorityEnum priorityEnum, LocalDate endDate) {
         long daysUntilDelivery = LocalDate.now().until(endDate, ChronoUnit.DAYS);
-        int finalScore = getFinalScore(priorityEnum, daysUntilDelivery);
-
-        return finalScore;
+        return getFinalScore(priorityEnum, daysUntilDelivery);
     }
 
     private static int getFinalScore(PriorityEnum priorityEnum, long daysUntilDelivery) {
-        int priorityScore;
-        switch (priorityEnum) {
-            case LOW:
-                priorityScore = 0;
-                break;
-            case MEDIUM:
-                priorityScore = 50;
-                break;
-            case HIGH:
-                priorityScore = 100;
-                break;
-            default:
-                throw new IllegalArgumentException("Prioridade desconhecida");
-        }
+        int priorityScore = switch (priorityEnum) {
+            case LOW -> 0;
+            case MEDIUM -> 50;
+            case HIGH -> 100;
+        };
 
         int dateScore = (int) Math.min(100, (daysUntilDelivery * 100 / 30));
-        int finalScore = Math.min(100, priorityScore + dateScore);
-        return finalScore;
+        return Math.min(100, priorityScore + dateScore);
     }
 }

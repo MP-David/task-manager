@@ -35,7 +35,7 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<TaskDTO>> findAll() {
-        return ResponseEntity.ok(taskService.findAllWithLimitedUserInfo());
+        return ResponseEntity.ok(taskService.findAll());
     }
 
     @GetMapping(path = "find")
