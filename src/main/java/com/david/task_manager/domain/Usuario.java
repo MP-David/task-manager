@@ -25,10 +25,6 @@ public class Usuario {
     @JsonIgnore
     String email;
 
-    @OneToMany(mappedBy = "responsible", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Set<Task> tasks;
-
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

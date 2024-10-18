@@ -12,6 +12,7 @@ public class UsuarioPostCreator {
                 .name("Usuário Teste")
                 .username("testeUser")
                 .password("123456")
+                .email("joao.silva@example.com")
                 .roles(Set.of(RoleEnum.ROLE_USER))
                 .build();
     }

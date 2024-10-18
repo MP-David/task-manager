@@ -23,19 +23,10 @@ public class UsuarioCreator {
 
         // Set basic properties
         usuario.setId(1L);
-        usuario.setName("João Silva");
-        usuario.setUsername("joao.silva");
-        usuario.setPassword("senha123");
+        usuario.setName("Usuário Teste");
+        usuario.setUsername("testeUser");
+        usuario.setPassword("123456");
         usuario.setEmail("joao.silva@example.com");
-
-        // Create and set tasks
-        Set<Task> tasks = new HashSet<>();
-        Task task1 = new Task();
-        task1.setId(1L);
-        task1.setTitle("Implement user authentication");
-        task1.setResponsible(usuario);
-        tasks.add(task1);
-        usuario.setTasks(tasks);
 
         // Create and set roles
         Set<Role> roles = new HashSet<>();

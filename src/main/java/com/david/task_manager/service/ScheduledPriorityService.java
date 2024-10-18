@@ -1,13 +1,12 @@
-package com.david.task_manager.rotina;
+package com.david.task_manager.service;
 
-import com.david.task_manager.service.ScoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ScheduledTasks {
+public class ScheduledPriorityService {
 
     private final ScoreService scoreService;
 
