@@ -5,6 +5,7 @@ import com.david.task_manager.domain.Usuario;
 import com.david.task_manager.dto.TaskDTO;
 import com.david.task_manager.dto.UsuarioDTO;
 import com.david.task_manager.mapper.TaskMapper;
+import com.david.task_manager.mapper.UsuarioMapper;
 import com.david.task_manager.repository.TaskRepository;
 import org.assertj.core.api.Assertions;
 import org.hibernate.mapping.Any;
@@ -15,10 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.ArgumentMatchers;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mapstruct.factory.Mappers;
+import org.mockito.*;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -38,9 +37,12 @@ class TaskServiceTest {
 
     @Mock
     private TaskRepository taskRepository;
-    @Mock
-    private TaskMapper taskMapper;
-
+    //    @Mock
+//    private TaskMapper taskMapper;
+    @Spy
+    private TaskMapper taskMapper = Mappers.getMapper(TaskMapper.class);
+    @Spy
+    private UsuarioMapper usuarioMapper = Mappers.getMapper(UsuarioMapper.class);
 
     private List<Task> ListOfTask = new ArrayList<>();
     private Task task;
@@ -53,13 +55,13 @@ class TaskServiceTest {
 
         BDDMockito.when(taskRepository.findAll())
                 .thenReturn(ListOfTask);
-
-        BDDMockito.when(taskMapper.toTaskDTOList(ArgumentMatchers.any()))
-                .thenReturn(toTaskDTOList(ListOfTask));
+//
+//        BDDMockito.when(taskMapper.toTaskDTOList(ArgumentMatchers.anyList()))
+//                .thenReturn(toTaskDTOList(ListOfTask));
 
     }
 
-//    TODO @ParameterizedTest
+    //    TODO @ParameterizedTest
 //    TODO @MethodSource("createList")
     @Test
     void findAll() {
@@ -132,33 +134,33 @@ class TaskServiceTest {
     }
 
     public TaskDTO toTaskDTO(Task task) {
-        if ( task == null ) {
+        if (task == null) {
             return null;
         }
 
         TaskDTO.TaskDTOBuilder taskDTO = TaskDTO.builder();
 
-        taskDTO.responsible( toUsuarioDTO( task.getResponsible() ) );
-        taskDTO.id( task.getId() );
-        taskDTO.title( task.getTitle() );
-        taskDTO.description( task.getDescription() );
-        taskDTO.initDate( task.getInitDate() );
-        taskDTO.endDate( task.getEndDate() );
-        taskDTO.score( task.getScore() );
-        taskDTO.priority( task.getPriority() );
-        taskDTO.stage( task.getStage() );
+        taskDTO.responsible(toUsuarioDTO(task.getResponsible()));
+        taskDTO.id(task.getId());
+        taskDTO.title(task.getTitle());
+        taskDTO.description(task.getDescription());
+        taskDTO.initDate(task.getInitDate());
+        taskDTO.endDate(task.getEndDate());
+        taskDTO.score(task.getScore());
+        taskDTO.priority(task.getPriority());
+        taskDTO.stage(task.getStage());
 
         return taskDTO.build();
     }
 
     public List<TaskDTO> toTaskDTOList(List<Task> tasks) {
-        if ( tasks == null ) {
+        if (tasks == null) {
             return null;
         }
 
-        List<TaskDTO> list = new ArrayList<TaskDTO>( tasks.size() );
-        for ( Task task : tasks ) {
-            list.add( toTaskDTO( task ) );
+        List<TaskDTO> list = new ArrayList<TaskDTO>(tasks.size());
+        for (Task task : tasks) {
+            list.add(toTaskDTO(task));
         }
 
         return list;
