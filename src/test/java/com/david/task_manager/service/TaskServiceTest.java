@@ -72,7 +72,7 @@ class TaskServiceTest {
 
         Assertions.assertThat(tasks.get(0))
                 .isNotNull()
-                .isEqualTo(toTaskDTO(ListOfTask.get(0)));
+                .isEqualTo(taskMapper.toTaskDTO(ListOfTask.get(0)));
     }
 
     @Test
@@ -116,50 +116,5 @@ class TaskServiceTest {
 
     @Test
     void validateTaskStage() {
-    }
-
-//    private static Stream<Arguments> createList() {
-//        return Stream.of(Arguments.of(Instancio.ofList(Task.class).size(10).create()));
-//
-//    }
-
-    protected UsuarioDTO toUsuarioDTO(Usuario usuario) {
-        if (usuario == null) {
-            return null;
-        }
-        return new UsuarioDTO(usuario.getId(), usuario.getName(), usuario.getUsername());
-    }
-
-    public TaskDTO toTaskDTO(Task task) {
-        if (task == null) {
-            return null;
-        }
-
-        TaskDTO.TaskDTOBuilder taskDTO = TaskDTO.builder();
-
-        taskDTO.responsible(toUsuarioDTO(task.getResponsible()));
-        taskDTO.id(task.getId());
-        taskDTO.title(task.getTitle());
-        taskDTO.description(task.getDescription());
-        taskDTO.initDate(task.getInitDate());
-        taskDTO.endDate(task.getEndDate());
-        taskDTO.score(task.getScore());
-        taskDTO.priority(task.getPriority());
-        taskDTO.stage(task.getStage());
-
-        return taskDTO.build();
-    }
-
-    public List<TaskDTO> toTaskDTOList(List<Task> tasks) {
-        if (tasks == null) {
-            return null;
-        }
-
-        List<TaskDTO> list = new ArrayList<TaskDTO>(tasks.size());
-        for (Task task : tasks) {
-            list.add(toTaskDTO(task));
-        }
-
-        return list;
     }
 }
