@@ -2,6 +2,7 @@ package com.david.task_manager.service;
 
 import com.david.task_manager.domain.Task;
 import com.david.task_manager.dto.TaskDTO;
+import com.david.task_manager.exception.TaskNotFoundException;
 import com.david.task_manager.mapper.TaskMapper;
 import com.david.task_manager.mapper.UsuarioMapper;
 import com.david.task_manager.repository.TaskRepository;
@@ -85,10 +86,37 @@ class TaskServiceTest {
 
     @Test
     void findByIdOrElseThrowBadRequest() {
+
+        when(taskRepository.findById(ArgumentMatchers.anyLong()))
+                .thenReturn(Optional.empty());
+
+        Assertions.assertThatCode(() -> taskService.findByIdOrElseThrowBadRequest(1L))
+                .isInstanceOf(TaskNotFoundException.class);
     }
 
     @Test
     void findByTitle() {
+
+        List<Task> tasksByTitle = new ArrayList<>(Instancio.ofList(Task.class).size(8).create()
+                .stream()
+                .peek(task -> task.setTitle("Title"))
+                .toList());
+        tasksByTitle.addAll(Instancio.ofList(Task.class).size(5).create());
+
+        when(taskRepository.findByTitle("Title"))
+                .thenReturn(tasksByTitle.stream().filter(t -> t.getTitle().equals("Title")).toList());
+
+        List<TaskDTO> listFoundByTitle = taskService.findByTitle("Title");
+
+        Assertions.assertThat(listFoundByTitle)
+                .isNotNull()
+                .hasSize(8);
+
+        Assertions.assertThat(listFoundByTitle.get(0))
+                .isNotNull()
+                .extracting(TaskDTO::getTitle)
+                .isEqualTo("Title");
+
     }
 
     @Test
