@@ -12,10 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -56,6 +53,9 @@ class TaskServiceTest {
 
         when(taskRepository.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(task));
+
+        BDDMockito.doNothing().when(taskRepository).delete(ArgumentMatchers.any(Task.class));
+
     }
 
     @Test
@@ -121,6 +121,9 @@ class TaskServiceTest {
 
     @Test
     void delete() {
+
+        Assertions.assertThatCode(() -> taskService.delete(task.getId()))
+                .doesNotThrowAnyException();
     }
 
     @Test
