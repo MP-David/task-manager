@@ -1,13 +1,10 @@
 package com.david.task_manager.service;
 
 import com.david.task_manager.domain.Task;
-import com.david.task_manager.domain.Usuario;
 import com.david.task_manager.dto.TaskDTO;
-import com.david.task_manager.dto.UsuarioDTO;
 import com.david.task_manager.mapper.TaskMapper;
 import com.david.task_manager.mapper.UsuarioMapper;
 import com.david.task_manager.repository.TaskRepository;
-
 import org.assertj.core.api.Assertions;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
