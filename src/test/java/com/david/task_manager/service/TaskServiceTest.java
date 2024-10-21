@@ -7,45 +7,45 @@ import com.david.task_manager.dto.UsuarioDTO;
 import com.david.task_manager.mapper.TaskMapper;
 import com.david.task_manager.mapper.UsuarioMapper;
 import com.david.task_manager.repository.TaskRepository;
+
 import org.assertj.core.api.Assertions;
-import org.hibernate.mapping.Any;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.mapstruct.factory.Mappers;
-import org.mockito.*;
-import org.springdoc.core.annotations.ParameterObject;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
-import static com.david.task_manager.util.Builders.TaskCreator.createTaskDTOList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 class TaskServiceTest {
 
     @InjectMocks
     private TaskService taskService;
-
     @Mock
     private TaskRepository taskRepository;
-    //    @Mock
-//    private TaskMapper taskMapper;
     @Spy
     private TaskMapper taskMapper = Mappers.getMapper(TaskMapper.class);
-    @Spy
-    private UsuarioMapper usuarioMapper = Mappers.getMapper(UsuarioMapper.class);
 
-    private List<Task> ListOfTask = new ArrayList<>();
     private Task task;
+    private List<Task> ListOfTask = new ArrayList<>();
+
+    //Injeção do mapper de Usuario no mapper de Task
+    @BeforeEach
+    public void init() {
+        UsuarioMapper usuarioMapper = Mappers.getMapper(UsuarioMapper.class);
+        ReflectionTestUtils.setField(taskMapper, "usuarioMapper", usuarioMapper);
+    }
 
     @BeforeEach
     void setUp() {
@@ -53,16 +53,13 @@ class TaskServiceTest {
         this.task = Instancio.create(Task.class);
         this.ListOfTask = Instancio.ofList(Task.class).size(10).create();
 
-        BDDMockito.when(taskRepository.findAll())
+        when(taskRepository.findAll())
                 .thenReturn(ListOfTask);
-//
-//        BDDMockito.when(taskMapper.toTaskDTOList(ArgumentMatchers.anyList()))
-//                .thenReturn(toTaskDTOList(ListOfTask));
 
+        when(taskRepository.findById(ArgumentMatchers.anyLong()))
+                .thenReturn(Optional.ofNullable(task));
     }
 
-    //    TODO @ParameterizedTest
-//    TODO @MethodSource("createList")
     @Test
     void findAll() {
 
@@ -80,13 +77,13 @@ class TaskServiceTest {
 
     @Test
     void findById() {
-//
-//        TaskDTO taskDTO = taskService.findById(task.getId());
-//
-//        Assertions.assertThat(taskDTO)
-//                .isNotNull()
-//                .extracting(TaskDTO::getId)
-//                .isEqualTo(task.getId());
+
+        TaskDTO taskDTO = taskService.findById(task.getId());
+
+        Assertions.assertThat(taskDTO)
+                .isNotNull()
+                .extracting(TaskDTO::getId)
+                .isEqualTo(task.getId());
     }
 
     @Test

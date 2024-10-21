@@ -22,7 +22,7 @@ public abstract class UsuarioMapper {
         return StageEnum.forValue(stage.toUpperCase());
     }
 
-    protected UsuarioDTO toUsuarioDTO(Usuario usuario) {
+    public UsuarioDTO toUsuarioDTO(Usuario usuario) {
         if (usuario == null) {
             return null;
         }
