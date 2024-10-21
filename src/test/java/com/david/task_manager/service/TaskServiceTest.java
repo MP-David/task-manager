@@ -97,16 +97,18 @@ class TaskServiceTest {
     @Test
     void findByTitle() {
 
+        String TITLE = "Title";
+
         List<Task> tasksByTitle = new ArrayList<>(Instancio.ofList(Task.class).size(8).create()
                 .stream()
-                .peek(task -> task.setTitle("Title"))
+                .peek(task -> task.setTitle(TITLE))
                 .toList());
         tasksByTitle.addAll(Instancio.ofList(Task.class).size(5).create());
 
-        when(taskRepository.findByTitle("Title"))
-                .thenReturn(tasksByTitle.stream().filter(t -> t.getTitle().equals("Title")).toList());
+        when(taskRepository.findByTitle(TITLE))
+                .thenReturn(tasksByTitle.stream().filter(t -> t.getTitle().equals(TITLE)).toList());
 
-        List<TaskDTO> listFoundByTitle = taskService.findByTitle("Title");
+        List<TaskDTO> listFoundByTitle = taskService.findByTitle(TITLE);
 
         Assertions.assertThat(listFoundByTitle)
                 .isNotNull()
@@ -115,7 +117,7 @@ class TaskServiceTest {
         Assertions.assertThat(listFoundByTitle.get(0))
                 .isNotNull()
                 .extracting(TaskDTO::getTitle)
-                .isEqualTo("Title");
+                .isEqualTo(TITLE);
 
     }
 
